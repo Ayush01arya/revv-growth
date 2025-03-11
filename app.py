@@ -132,23 +132,8 @@ def get_seo_data(domain):
                 keyword = cols[0].text.strip()
                 rank_data = cols[1]
                 movement_icon = rank_data.find("svg", {"xmlns": "http://www.w3.org/2000/svg"})
-                movement_value_element = movement_icon.find_next_sibling(string=True) if movement_icon else None
-                movement_value = movement_value_element.strip() if movement_value_element else "0"
 
-                # Ensure movement value is a valid integer
-                try:
-                    movement_value = int(movement_value)
-                except ValueError:
-                    movement_value = 0  # Default to 0 if parsing fails
-
-                # Determine movement direction
-                if movement_icon and movement_value > 0:
-                    rank_movement = f"🔼 {movement_value}"  # Rank improved
-                elif movement_icon and movement_value < 0:
-                    rank_movement = f"🔽 {abs(movement_value)}"  # Rank dropped
-                else:
-                    rank_movement = "↔ No Change"  # No movement detected
-                rank = rank_movement
+                rank = cols[1].text.strip()
                 traffic_percentage = cols[2].text.strip()
                 volume = cols[3].text.strip()
                 kd_percentage = cols[4].text.strip()
